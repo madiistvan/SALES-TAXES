@@ -1,5 +1,4 @@
 package com.salestax.products;
-
 public abstract class Product {
 
   /** The name of the product */
@@ -13,28 +12,35 @@ public abstract class Product {
 
   /** Calculates the  price after tax for one item. */
   protected Double calculatePriceAfterTax() {
-    return 0.0;
+    return calculateRoundedTax() + priceWithoutTax;
   }
 
   /** Calculates the tax for one item. */
   protected abstract Double calculateTax();
 
-  public Product(String name, Double priceWithoutTax, int amount) {
+  /** round the calculated tax */
+  private Double calculateRoundedTax(){
+    return Math.ceil(calculateTax() * 20) / 20;
+  }
 
+  public Product(String name, Double priceWithoutTax, int amount) {
+    this.name = name;
+    this.priceWithoutTax = priceWithoutTax;
+    this.amount = amount;
   }
 
   /** Calculates the full price after tax for all the items
    * @return the full price after tax
    */
   public double calculateFullPriceAfterTax() {
-    return 0.0;
+     return calculatePriceAfterTax() * amount;
   }
 
   /** Calculates the total of tax for the amount of items
    * @return the total tax
    */
   public double calculateTotalTax() {
-    return 0.0;
+    return calculateFullPriceAfterTax() - priceWithoutTax * amount;
   }
 
   /**

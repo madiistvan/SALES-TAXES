@@ -1,5 +1,7 @@
 package com.salestax.products;
 
+import com.salestax.helper.TaxHelper;
+
 public class TaxedProduct extends Product{
 
   public TaxedProduct(String name, Double priceWithoutTax, int amount) {
@@ -9,6 +11,6 @@ public class TaxedProduct extends Product{
   /** @see Product#calculateTax() */
   @Override
   protected Double calculateTax() {
-    return 0.0;
+    return (TaxHelper.BASIC_SALES_TAX) / 100 * priceWithoutTax;
   }
 }
